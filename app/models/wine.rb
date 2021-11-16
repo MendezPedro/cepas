@@ -1,6 +1,10 @@
 class Wine < ApplicationRecord
-    has_many :blends 
+    has_many :blends, dependent: :destroy
     has_many :strains, through: :blends
 
-    accepts_nested_attributes_for :blends, reject_if: :all_blank
+    has_many :grades, dependent: :destroy
+    has_many :eonologist, through: :grades
+
+    accepts_nested_attributes_for :blends, :grades, reject_if: :all_blank
+
 end

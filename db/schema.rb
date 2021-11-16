@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_15_205544) do
+ActiveRecord::Schema.define(version: 2021_11_16_000515) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,16 @@ ActiveRecord::Schema.define(version: 2021_11_15_205544) do
     t.datetime "updated_at", null: false
     t.index ["strain_id"], name: "index_blends_on_strain_id"
     t.index ["wine_id"], name: "index_blends_on_wine_id"
+  end
+
+  create_table "grades", force: :cascade do |t|
+    t.bigint "oenologist_id"
+    t.bigint "wine_id"
+    t.integer "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["oenologist_id"], name: "index_grades_on_oenologist_id"
+    t.index ["wine_id"], name: "index_grades_on_wine_id"
   end
 
   create_table "magazines", force: :cascade do |t|
@@ -78,6 +88,8 @@ ActiveRecord::Schema.define(version: 2021_11_15_205544) do
 
   add_foreign_key "blends", "strains"
   add_foreign_key "blends", "wines"
+  add_foreign_key "grades", "oenologists"
+  add_foreign_key "grades", "wines"
   add_foreign_key "oenologist_magazines", "magazines"
   add_foreign_key "oenologist_magazines", "oenologists"
 end

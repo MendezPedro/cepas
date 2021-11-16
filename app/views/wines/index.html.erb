@@ -6,6 +6,7 @@
     <tr>
       <th>Name</th>
       <th>Strains</th>
+      <th>Grade and Eonologist</th>
       <% if current_user.admin %>
         <th colspan="3"></th>
       <% end %>
@@ -17,9 +18,18 @@
       <tr>
         <td><%= wine.name %></td>
         <td>
-          <% wine.blends.each do |blend| %>
-            <li><%= blend.strain.name %>(<%= blend.percentage %>%) </li>
-          <% end %>
+          <ul>
+            <% wine.blends.each do |blend| %>
+              <li><%= blend.strain.name %>(<%= blend.percentage %>%) </li>
+            <% end %>
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <% wine.grades.each do |grade| %>
+              <li><%= grade.oenologist.name %> Calificon con <%= grade.score %> </li>
+            <% end %>
+          </ul>
         </td>
         <% if current_user.admin %>
           <td><%= link_to 'Show', wine %></td>

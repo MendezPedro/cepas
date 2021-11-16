@@ -14,14 +14,16 @@ class WinesController < ApplicationController
   def new
     @wine = Wine.new
     @strains = Strain.all
-    @strains_two = Strain.pluck :name, :id
+    #@strains_two = Strain.pluck :name, :id
     @wine.blends.build
   end
 
   # GET /wines/1/edit
   def edit
+    @oenologists = Oenologist.all
     @strains = Strain.all
-    @strains_two = Strain.pluck :name, :id
+    #@strains_two = Strain.pluck :name, :id
+    #@wine.grades.build unless @wine.grades.present?
   end
 
   # POST /wines or /wines.json
@@ -69,6 +71,7 @@ class WinesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def wine_params
-      params.require(:wine).permit(:name, blends_attributes: [:strain_id, :percentage])
+      #siempre crear con id porque o sino replicara
+      params.require(:wine).permit(:name, {blends_attributes: [:id, :strain_id, :percentage]}, grades_attributes: [:id, :oenologist_id, :score])
     end
 end

@@ -1,5 +1,6 @@
 class WinesController < ApplicationController
   before_action :set_wine, only: %i[ show edit update destroy ]
+  skip_before_action :authenticate_user!, only: [:index]
   skip_before_action :only_admin, only: [:index]
   # GET /wines or /wines.json
   def index
